@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+
+require "bundler"
+
+app_env = 'development'
+
+mysetup = Bundler.setup(:default, app_env)
+mysetup.require(:default, app_env)
+
+$:.unshift File.expand_path("../lib", __dir__)
+
+require 'pry'
+$0 = 'pry'
+
+# Process command line options and run Pry
+opts = Pry::CLI.parse_options
+Pry::CLI.start(opts)
