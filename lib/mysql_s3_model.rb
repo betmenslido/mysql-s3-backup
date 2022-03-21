@@ -1,6 +1,6 @@
 def create_model(
       model_name:,
-      database_name:,
+      db_name:,
       s3_key_id:,
       s3_key:,
       s3_bucket_name:,
@@ -12,7 +12,7 @@ def create_model(
     )
   Backup::Model.new(model_name, "My Backup") do
     database Backup::Database::MySQL do |db|
-      db.name               = database_name
+      db.name               = db_name
 
       db.username           = db_user
       db.password           = db_password
@@ -22,10 +22,7 @@ def create_model(
       db.additional_options = ['--single-transaction', '--quick']
     end
 
-    compress_with Backup::Compressor::Custom do |compression|
-      compression.command = 'zip - -'
-      compression.extension = '.zip'
-    end
+    compress_with Backup::Compressor::Gzip
 
     store_with Backup::Storage::S3, :server_01 do |s3|
       s3.storage_class      = :reduced_redundancy
@@ -38,4 +35,3 @@ def create_model(
     end
   end
 end
-
