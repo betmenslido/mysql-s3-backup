@@ -5,7 +5,7 @@ RUN ./install.sh && rm install.sh
 
 WORKDIR /app
 
-ADD run.sh backup.rb Gemfile Gemfile.lock .
+ADD Gemfile Gemfile.lock .
 
 ENV LANG C.UTF-8
 ENV SCHEDULE **None**
@@ -16,6 +16,8 @@ RUN bundle config set without 'development test'
 
 RUN bundle install --jobs=4 && rm -rf /root/.bundle/cache/*
 
+ADD run.sh run_backup.rb .
+# dot syntax no worky for dirs
 ADD lib lib
 
 CMD ["./run.sh"]

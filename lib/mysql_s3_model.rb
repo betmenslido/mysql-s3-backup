@@ -38,3 +38,4 @@ def create_model(
     end
   end
 end
+

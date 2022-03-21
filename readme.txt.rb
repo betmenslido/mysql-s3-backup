@@ -1,25 +1,30 @@
-docker build . --tag=backy:latest
+# Test image
 
-# try inside container
+$ docker build . --tag=backy:latest
+$ docker run --rm -it --env 'SCHEDULE=* * * * *' backy:latest
 
-docker build . --tag=backy:latest
-docker run --rm -it backy:latest /bin/ash
+# Contributing
+
+## Try inside container:
+
 docker run --rm -it backy:latest irb
 require 'bundler'
-Bundler.setup
-Bundler.require
+Bundler.setup.require
 load 'lib/mysql_s3_model.rb'
 
-# Playground
+## Try locally:
 
 $ bin/console
 
-load 'mysql_s3_model.rb'
+require 'mysql_s3_model'
+
+secrets = YAML::load(File.open("secrets.yml", "r:UTF-8", &:read))
+
 model = create_model(
   model_name: "mymodel",
   database_name: "kopiena_dev",
-  s3_key_id: "xxx",
-  s3_key: "xxx",
+  s3_key_id: secrets["key_id"],
+  s3_key: secrets["key"],
   s3_bucket_name: "kopiena-db-backups",
   s3_region: "eu-west-1",
   s3_path: "",
