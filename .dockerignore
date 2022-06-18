@@ -1,11 +1,17 @@
 # https://docs.docker.com/engine/reference/builder/#dockerignore-file
 
+# git
 .git
 .gitignore
 
-/secrets.yml
-/testrun.env
-/readme*
-/.ruby-version
-/Dockerfile
-/.dockerignore
+# secrets
+secrets.yml*
+testrun.env*
+
+readme*
+.ruby-version
+Dockerfile
+.dockerignore
+bin
+datadir
+.byebug_history

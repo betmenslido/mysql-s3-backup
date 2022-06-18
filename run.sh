@@ -3,9 +3,9 @@
 set -e
 
 if [ "${SCHEDULE}" = "**None**" ]; then
-  ruby /app/run_backup.rb
+  cd /app && ruby run.rb
 else
-  echo "$SCHEDULE cd /app && ruby run_backup.rb" > /etc/crontabs/root
+  echo "$SCHEDULE cd /app && ruby run.rb" > /etc/crontabs/root
 
   echo "--- Using: /etc/crontabs/root"
   cat /etc/crontabs/root

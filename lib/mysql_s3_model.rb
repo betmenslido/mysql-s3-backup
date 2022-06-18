@@ -8,7 +8,7 @@ def create_model(
       s3_path:,
       db_host:,
       db_user:,
-      db_password: nil
+      db_password:
     )
   Backup::Model.new(model_name, "My Backup") do
     database Backup::Database::MySQL do |db|

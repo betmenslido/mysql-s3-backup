@@ -1,2 +1,5 @@
 /secrets.yml
 /testrun.env
+/datadir/.data
+/datadir/.tmp
+.byebug_history

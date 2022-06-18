@@ -2,12 +2,13 @@
 
 require "bundler"
 
-app_env = 'development'
-
-mysetup = Bundler.setup(:default, app_env)
-mysetup.require(:default, app_env)
+# https://github.com/rubygems/rubygems/blob/master/bundler/lib/bundler.rb#L186
+Bundler.require(:default, :development)
 
 $:.unshift File.expand_path("../lib", __dir__)
+
+# additional requires
+require 'mysql_s3_model'
 
 require 'pry'
 $0 = 'pry'
