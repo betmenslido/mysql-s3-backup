@@ -29,6 +29,7 @@ create_model(params_here_see_run_rb).perform!
 
 secrets = YAML::load(File.open("secrets.yml", "r:UTF-8", &:read))
 
+Backup::Config.send(:update, root_path: "datadir")
 Backup::Logger.start!
 
 model = create_model(
