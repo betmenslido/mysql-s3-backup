@@ -7,9 +7,11 @@ $:.unshift File.expand_path("./lib", __dir__)
 
 puts "#{DateTime.now}: Backup starting..."
 
+Backup::Logger.start!
+
 require 'mysql_s3_model'
 
-create_model(
+model = create_model(
   model_name: ENV['MODEL_NAME'],
 
   s3_key_id: ENV['S3_KEY_ID'],
@@ -22,6 +24,8 @@ create_model(
   db_host: ENV['DB_HOST'],
   db_user: ENV['DB_USER'],
   db_password: ENV['DB_PASSWORD'],
-).perform!
+)
 
-puts "#{DateTime.now}: Backup completed..."
+model.perform!
+
+puts "#{DateTime.now}: Backup completed."

@@ -20,7 +20,8 @@
 require 'bundler'
 Bundler.require(:default)
 load 'lib/mysql_s3_model.rb'
-create_model(params_here_see_run_rb)
+Backup::Logger.start!
+create_model(params_here_see_run_rb).perform!
 
 ## Try locally
 
@@ -28,7 +29,9 @@ create_model(params_here_see_run_rb)
 
 secrets = YAML::load(File.open("secrets.yml", "r:UTF-8", &:read))
 
-create_model(
+Backup::Logger.start!
+
+model = create_model(
   model_name: secrets["model_name"],
   s3_key_id: secrets["s3_key_id"],
   s3_key: secrets["s3_key"],
@@ -39,7 +42,9 @@ create_model(
   db_name: secrets["db_name"],
   db_user: secrets["db_user"],
   db_password: secrets["db_password"],
-).perform!
+)
+
+model.perform!
 
 ## Upload to dockerhub
 

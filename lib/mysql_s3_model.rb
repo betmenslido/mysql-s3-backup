@@ -19,7 +19,11 @@ def create_model(
       db.host               = db_host
 
       db.skip_tables        = ['mysql.event']
-      db.additional_options = ['--single-transaction', '--quick']
+      db.additional_options = [
+        '--single-transaction',
+        '--no-tablespaces',
+        '--quick',
+      ]
     end
 
     compress_with Backup::Compressor::Gzip

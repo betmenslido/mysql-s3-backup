@@ -2,4 +2,5 @@
 /testrun.env
 /datadir/.data
 /datadir/.tmp
+/datadir/log
 .byebug_history
