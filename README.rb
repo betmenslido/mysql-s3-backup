@@ -1,10 +1,17 @@
-# Test image
+# Use
+
+## /path/to/datadir : working directory for backup tool
+## config.env : see testrun.env.example
+
+`docker run -v /path/to/datadir:/root/Backup --rm -it --env-file config.env betmenslido/mysql-s3-backup`
+
+# Contributing
+
+## Test image
 
 `docker build . --tag=backy:latest`
 `docker run -v $(realpath datadir):/root/Backup --rm -it --env-file testrun.env backy:latest`
 `docker run -v $(realpath datadir):/root/Backup --rm -it --env 'SCHEDULE=* * * * *' --env-file testrun.env backy:latest`
-
-# Contributing
 
 ## Try inside container
 
@@ -33,3 +40,12 @@ create_model(
   db_user: secrets["db_user"],
   db_password: secrets["db_password"],
 ).perform!
+
+## Upload to dockerhub
+
+docker login registry-1.docker.io
+..
+docker tag backy:latest registry-1.docker.io/betmenslido/mysql-s3-backup:latest
+docker tag backy:latest registry-1.docker.io/betmenslido/mysql-s3-backup:$(date +%F)
+docker push registry-1.docker.io/betmenslido/mysql-s3-backup:latest
+docker push registry-1.docker.io/betmenslido/mysql-s3-backup:$(date +%F)
